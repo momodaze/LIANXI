@@ -1,0 +1,7 @@
+".\Objects\LCD1602.obj",
+".\Objects\main.obj",
+".\Objects\matrix.obj",
+".\Objects\password.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\МђвзУмТы2" 
+PRINT(".\Listings\МђвзУмТы2.m51") RAMSIZE(256) 
