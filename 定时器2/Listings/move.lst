@@ -1,0 +1,46 @@
+C51 COMPILER V9.54   MOVE                                                                  09/19/2026 15:34:02 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MOVE
+OBJECT MODULE PLACED IN .\Objects\move.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE move.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\move.ls
+                    -t) TABS(2) OBJECT(.\Objects\move.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          static unsigned char count = 0;
+   4          unsigned char dir = 0;
+   5          void dir_trigger (unsigned char a) {
+   6   1          
+   7   1          if(a == 1) dir = 1;    
+   8   1          if(a == 2) dir = 2;
+   9   1      }
+  10          void move() {
+  11   1        if(dir == 0) return;
+  12   1        if(dir==1){
+  13   2            if(count>=7)count = 0;
+  14   2            else count++;
+  15   2            P2 = ~(1<<count);
+  16   2        }
+  17   1        if(dir==2){
+  18   2            if(count==0)count = 7;
+  19   2            else count--;
+  20   2            P2 =~(1<<count);
+  21   2          }
+  22   1        }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     85    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
