@@ -1,0 +1,44 @@
+C51 COMPILER V9.54   74HC595                                                               09/28/2026 00:04:22 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE 74HC595
+OBJECT MODULE PLACED IN .\Objects\74HC595.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE 74HC595.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\74HC
+                    -595.lst) TABS(2) OBJECT(.\Objects\74HC595.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          sbit RCK = P3^5;
+   4          sbit SER = P3^4;
+   5          sbit SCK = P3^6;
+   6          /**
+   7            *@brief 给74HC595输入数据选位单个字节并整体输出给寄存器
+   8            *@param Byte：对应的数据
+   9            *@retravl 无
+  10          */
+  11          void _74HC595_writeByte(unsigned char Byte){
+  12   1        unsigned char i = 0;
+  13   1        for(i = 0;i<8;i++){
+  14   2          SER = Byte&(0x80>>i);
+  15   2          SCK = 1;
+  16   2          SCK = 0;
+  17   2        }
+  18   1        RCK = 1;
+  19   1        RCK = 0;
+  20   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     45    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

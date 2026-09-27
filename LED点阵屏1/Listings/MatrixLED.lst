@@ -1,0 +1,49 @@
+C51 COMPILER V9.54   MATRIXLED                                                             09/28/2026 00:04:22 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MATRIXLED
+OBJECT MODULE PLACED IN .\Objects\MatrixLED.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE MatrixLED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Ma
+                    -trixLED.lst) TABS(2) OBJECT(.\Objects\MatrixLED.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "delay.h"
+   3          #include "74HC595.h"
+   4          
+   5          /**
+   6            *@brief 选取点阵屏列位置和对应列led分布
+   7            *@param column： 第几列（0-7） data: 小灯的分布
+   8            *@retravl 无
+   9          */
+  10          #define LED_COLOMN_POSE P0
+  11          sbit RCK = P3^5;
+  12          sbit SER = P3^4;
+  13          sbit SCK = P3^6;
+  14          void MatrixLED_ShowColor(unsigned char Column,Data){
+  15   1        _74HC595_writeByte(0x00);
+  16   1        LED_COLOMN_POSE = ~(0x80>>Column);
+  17   1        _74HC595_writeByte(Data);
+  18   1        Delay1ms();
+  19   1        LED_COLOMN_POSE = 0xFF;
+  20   1        _74HC595_writeByte(0x00);
+  21   1      }
+  22          void Init_LED(){
+  23   1        RCK = 0;
+  24   1        SCK = 0;
+  25   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     48    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
