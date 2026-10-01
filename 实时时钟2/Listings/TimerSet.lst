@@ -1,0 +1,24 @@
+C51 COMPILER V9.54   TIMERSET                                                              10/01/2026 21:39:50 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE TIMERSET
+OBJECT MODULE PLACED IN .\Objects\TimerSet.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE TimerSet.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Tim
+                    -erSet.lst) TABS(2) OBJECT(.\Objects\TimerSet.obj)
+
+line level    source
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
