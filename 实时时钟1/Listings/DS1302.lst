@@ -1,0 +1,109 @@
+C51 COMPILER V9.54   DS1302                                                                10/01/2026 20:19:29 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DS1302
+OBJECT MODULE PLACED IN .\Objects\DS1302.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE DS1302.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\DS130
+                    -2.lst) TABS(2) OBJECT(.\Objects\DS1302.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "transto.h"
+   3          
+   4          sbit DS1302_SCLK = P3^6;
+   5          sbit DS1302_CE = P3^5;
+   6          sbit DS1302_IO = P3^4;
+   7          
+   8          #define DS_SECOND 0x80
+   9          #define DS_MINUTE 0x82
+  10          #define DS_HOUR   0x84
+  11          #define DS_DATE   0x86
+  12          #define DS_MONTH  0x88
+  13          #define DS_DAY    0x8A
+  14          #define DS_YEAR   0x8C
+  15          #define DS_WP     0x8E
+  16          unsigned char Time[]={26,10,1,17,48,20,4};
+  17          void DS1302_Init(){
+  18   1        DS1302_CE = 0;
+  19   1        DS1302_SCLK = 0;
+  20   1      }
+  21          unsigned char DS1302_readByte(unsigned char command){
+  22   1        unsigned char dat = 0;
+  23   1        unsigned char i = 0;
+  24   1        command|= 0x01;
+  25   1        DS1302_CE = 1;
+  26   1        for(i=0;i<8;i++){
+  27   2          DS1302_IO = command&(0x01<<i);
+  28   2          DS1302_SCLK = 0;
+  29   2          DS1302_SCLK = 1;
+  30   2        }
+  31   1        for(i = 0;i<8;i++){ 
+  32   2          DS1302_SCLK = 1;
+  33   2          DS1302_SCLK = 0;
+  34   2          if(DS1302_IO){
+  35   3            dat|= (0x01<<i);
+  36   3          }
+  37   2        }
+  38   1        DS1302_CE = 0;
+  39   1        DS1302_IO = 0;
+  40   1        return dat;
+  41   1      }
+  42          
+  43          
+  44          void DS1302_writeByte(unsigned char command, unsigned char dat){
+  45   1          unsigned char i;
+  46   1          DS1302_CE = 1;
+  47   1          
+  48   1          for(i = 0; i < 8; i++){
+  49   2              DS1302_IO = command & (0x01 << i);
+  50   2              DS1302_SCLK = 1;
+  51   2              DS1302_SCLK = 0;
+  52   2          }
+  53   1          
+  54   1          for(i = 0; i < 8; i++){
+C51 COMPILER V9.54   DS1302                                                                10/01/2026 20:19:29 PAGE 2   
+
+  55   2              DS1302_IO = dat & (0x01 << i);
+  56   2              DS1302_SCLK = 1;
+  57   2              DS1302_SCLK = 0;
+  58   2          }
+  59   1          
+  60   1          DS1302_CE = 0;
+  61   1      }
+  62          
+  63          void DS1302_SetTime(){
+  64   1        DS1302_writeByte(DS_WP, 0x00); //关闭写保护
+  65   1        DS1302_writeByte(DS_YEAR, Dec_To_BCD(Time[0])); 
+  66   1        DS1302_writeByte(DS_MONTH, Dec_To_BCD(Time[1])); 
+  67   1        DS1302_writeByte(DS_DATE, Dec_To_BCD(Time[2])); 
+  68   1        DS1302_writeByte(DS_HOUR, Dec_To_BCD(Time[3])); 
+  69   1        DS1302_writeByte(DS_MINUTE, Dec_To_BCD(Time[4])); 
+  70   1        DS1302_writeByte(DS_SECOND, Dec_To_BCD(Time[5])); 
+  71   1        DS1302_writeByte(DS_DAY, Dec_To_BCD(Time[6])); 
+  72   1        DS1302_writeByte(DS_WP, 0x80); //打开写保护
+  73   1      }
+  74          
+  75          void DS1302_ReadTime(){
+  76   1        Time[0] = BCD_To_Dec(DS1302_readByte(DS_YEAR));
+  77   1        Time[1] = BCD_To_Dec(DS1302_readByte(DS_MONTH));
+  78   1        Time[2] = BCD_To_Dec(DS1302_readByte(DS_DATE));
+  79   1        Time[3] = BCD_To_Dec(DS1302_readByte(DS_HOUR));
+  80   1        Time[4] = BCD_To_Dec(DS1302_readByte(DS_MINUTE));
+  81   1        Time[5] = BCD_To_Dec(DS1302_readByte(DS_SECOND));
+  82   1        Time[6] = BCD_To_Dec(DS1302_readByte(DS_DAY));
+  83   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    333    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      7    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

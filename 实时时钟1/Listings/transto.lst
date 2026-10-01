@@ -1,0 +1,33 @@
+C51 COMPILER V9.54   TRANSTO                                                               10/01/2026 20:19:29 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE TRANSTO
+OBJECT MODULE PLACED IN .\Objects\transto.obj
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE transto.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\tran
+                    -sto.lst) TABS(2) OBJECT(.\Objects\transto.obj)
+
+line level    source
+
+   1          unsigned char BCD_To_Dec(unsigned char bcd)
+   2          {
+   3   1          return (bcd >> 4) * 10 + (bcd & 0x0F);
+   4   1      }
+   5          
+   6          unsigned char Dec_To_BCD(unsigned char dec)
+   7          {
+   8   1          return ((dec / 10) << 4) | (dec % 10);
+   9   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     34    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
